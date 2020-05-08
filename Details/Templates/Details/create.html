@@ -1,0 +1,18 @@
+
+{% extends 'Home.html' %}
+
+
+
+
+{% block contentdetails %}
+
+<div class="Details">
+    <form class="site-form-create" action="{% url 'Details:create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="create">
+    </form>
+
+</div>
+
+{% endblock %}

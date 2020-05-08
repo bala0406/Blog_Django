@@ -1,0 +1,22 @@
+{% extends 'Home.html' %}
+
+{% block contentdetails %}
+
+<div class="details">
+    <div class="user">
+        <p>Name : {{details.name}}</p>
+        <p>About : {{details.about}}</p>
+        <p>Email : {{details.email}}</p>
+        <p>Phone : {{details.phone}}</p>
+        <p>Gender : {{details.gender}}</p>
+        <p>Created by: {{details.currentuser.username}}</p>
+
+        <form class="edit" method="post">
+                {% csrf_token %}
+                <button type="submit" formaction="{% url 'Details:update' updatename=details.name %}">Update</button>   
+                <button type="submit" formaction="{% url 'Details:delete' deletename=details.name %}">delete</button>
+            </form>
+    </div>
+</div>
+
+{% endblock %}

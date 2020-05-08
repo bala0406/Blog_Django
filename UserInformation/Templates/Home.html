@@ -1,0 +1,28 @@
+{% extends 'base_layout.html' %}
+
+
+{% block content%}
+
+<h1>Great Innovous Admin Portal</h1>
+
+{% if user.is_authenticated %}
+
+<form class="logout-link" action="{% url 'Accounts:logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">logout</button>
+</form>
+<form class="CRUDdetails" method="post">
+    {% csrf_token %}
+    <button type="submit" formaction="{% url 'Details:create' %}">Create</button>
+</form>
+{% block contentdetails %}
+{% endblock %}
+
+{% else %}
+<form class="Login-Signup-Select" action="{% url 'Accounts:login' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Login</button>
+    <button type="submit" formaction="{% url 'Accounts:signup' %}">Signup</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+
+{% extends 'Home.html' %}
+
+{% block contentdetails %}
+
+<div class="update">
+    <form class="update" action="{% url 'Details:update' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="save">
+    </form>
+</div>
+
+{% endblock %}

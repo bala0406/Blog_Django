@@ -1,0 +1,47 @@
+{% extends 'Home.html' %}
+
+{% block contentdetails %}
+
+<form class="search bar" action="{% url 'Details:search' %}" method="get">
+    <input type="text" name="q" placeholder="search posts" value="{{ request.GET.q }}">
+    <input type="submit" formaction="{% url 'Details:search' %}" value="Search">
+    <input type="submit" formaction="{% url 'Details:read' %}" value="Reset">
+
+</form>
+
+
+{% if form.exists %}
+{% for f in formview %}
+
+<form class="site-form-read" action="{% url 'Details:read' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <a href="{% url 'Details:detail' name=f.name %}">{{f.name}}</a>
+    <p>{{f.about}}</p>
+    <p>Created by: {{f.currentuser.username}}</p>
+    <button type="submit" formaction="{% url 'Details:delete' deletename=f.name %}">delete</button>
+    
+</form>
+{% endfor %}
+{% else %}
+    <p>No results found</p>
+    {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if formview.has_previous %}
+            <a href="?page=1"> first</a>
+            <a href="?page={{ formview.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ formview.number }} of {{ formview.paginator.num_pages }}.
+        </span>
+
+        {% if formview.has_next %}
+            <a href="?page={{ formview.next_page_number }}">next>></a>
+            <a href="?page={{ formview.paginator.num_pages }}">last </a>
+        {% endif %}
+            
+    </span>
+</div>
+
+{% endblock %}
